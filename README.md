@@ -2,7 +2,7 @@
   <img src="assets/logo.svg" width="96" height="96" alt="SkillProof logo">
 </p>
 
-<h1 align="center">SkillProof</h1>
+# SkillProof
 
 <p align="center"><strong>Lint, score, and ship reliable Claude Code Agent Skills.</strong></p>
 
