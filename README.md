@@ -39,6 +39,30 @@ A skill is part code, part prompt, and part package. A typo in `name`, a descrip
 
 SkillProof turns those silent failures into actionable findings with line numbers, a score, and CI annotations.
 
+## Why not just ask Claude?
+
+A prompt can review one skill. It cannot be a repeatable quality gate.
+
+| | One-off prompt | SkillProof |
+| --- | :---: | :---: |
+| Identical result on every run | No | Yes |
+| CI exit codes and score thresholds | Custom glue | Built in |
+| Stable rule IDs and JSON output | No | Yes |
+| Runs offline with no API key | No | Yes |
+| Safe to run on untrusted skill files | No | Yes |
+| Per-rule severity and scoring | Prompt edits | Config |
+| Behavior covered by tests | No | Yes |
+
+The important difference is not that an AI cannot spot a missing description. It often can. The difference is what happens when the check has to run on every pull request, against every skill, for every contributor:
+
+- **Determinism.** LLM output changes with model, context, and phrasing. A missing reference either exists or it does not.
+- **Enforcement.** `--strict --min-score 90` fails a build. "Please run this prompt" is a convention people forget.
+- **Prompt-injection safety.** A skill can contain "ignore previous instructions." Asking a model to read and judge that file puts the reviewer in the blast radius. SkillProof parses it as data.
+- **Filesystem awareness.** Broken links, nested references, orphaned files, symlinks, excludes, and bundled scripts need code, not prose.
+- **Testability.** Every rule has positive and negative tests, so changes cannot silently weaken the check.
+
+A prompt is the right tool for a one-off review of one skill. SkillProof is for repositories, teams, marketplaces, and CI.
+
 ## Quick start
 
 ```bash
