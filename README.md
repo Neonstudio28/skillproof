@@ -208,7 +208,7 @@ jobs:
   skillproof:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: Neonstudio28/skillproof@v1
         with:
           paths: .claude/skills
