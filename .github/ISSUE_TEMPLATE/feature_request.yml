@@ -1,0 +1,63 @@
+name: Feature request
+description: Suggest a rule, reporter, integration, or workflow improvement
+title: '[feature]: '
+labels:
+  - enhancement
+  - triage
+body:
+  - type: markdown
+    attributes:
+      value: |
+        SkillProof stays small on purpose. Explain the problem first, then the
+        smallest change that would solve it. New runtime dependencies need a
+        strong justification because the budget is one package.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What is hard, missing, or noisy today?
+      placeholder: When I ... I cannot ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the behavior, CLI flag, rule ID, or integration you want.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Existing workarounds, other tools, or a smaller change that would also help.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Rule or scoring
+        - CLI or configuration
+        - Reporter or JSON schema
+        - GitHub Action or CI
+        - Documentation or examples
+        - Programmatic API
+        - Other
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues and the rules reference.
+          required: true
+        - label: This request fits the project's zero-config, low-dependency scope.
+          required: true

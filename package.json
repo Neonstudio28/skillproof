@@ -11,6 +11,7 @@
   },
   "files": [
     "action.yml",
+    "assets",
     "bin",
     "docs",
     "src",
@@ -31,10 +32,14 @@
     "claude",
     "claude-code",
     "cli",
+    "developer-tools",
+    "github-action",
     "lint",
     "linter",
+    "security",
     "skills",
-    "static-analysis"
+    "static-analysis",
+    "validation"
   ],
   "author": "Neonstudio28",
   "license": "MIT",

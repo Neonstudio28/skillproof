@@ -106,9 +106,9 @@ Rules that depend on frontmatter must start with:
 if (skill.frontmatterError) return [];
 ```
 
-Use `lineOfField`, `lineInBody`, and `lineMatching` from `src/utils.js` for
-line numbers. Do not include the rule ID or severity in `message`; the engine
-does that. Hints should be imperative and concrete.
+Use `lineOfField` and `lineInBody` from `src/utils.js` for line numbers. Do not
+include the rule ID or severity in `message`; the engine does that. Hints should
+be imperative and concrete.
 
 ## Metadata rules (`src/rules/metadata.js`)
 

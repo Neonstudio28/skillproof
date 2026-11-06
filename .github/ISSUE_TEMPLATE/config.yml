@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/Neonstudio28/skillproof/security/advisories/new
+    about: Report security issues privately. Do not open a public issue.
+  - name: Documentation and rule reference
+    url: https://github.com/Neonstudio28/skillproof/blob/main/docs/rules.md
+    about: Read every rule, severity, and fix before filing an issue.
+  - name: Questions and ideas
+    url: https://github.com/Neonstudio28/skillproof/discussions
+    about: Ask a question or discuss an idea with the community.

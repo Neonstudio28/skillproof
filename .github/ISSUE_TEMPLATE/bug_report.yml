@@ -1,0 +1,73 @@
+name: Bug report
+description: Report a crash, false positive, incorrect finding, or unexpected output
+title: '[bug]: '
+labels:
+  - bug
+  - triage
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a problem. Please remove secrets and private code
+        before posting. For security vulnerabilities, use the private advisory
+        link instead of this form.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe the actual behavior and what you expected instead.
+      placeholder: SkillProof reported ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: command
+    attributes:
+      label: Command and version
+      description: Include the exact command and the output of `skillproof --version`.
+      render: shell
+      placeholder: |
+        skillproof .claude/skills --strict
+        skillproof 0.1.0
+    validations:
+      required: true
+
+  - type: textarea
+    id: skill
+    attributes:
+      label: Minimal reproduction
+      description: Paste the smallest SKILL.md, config, and directory layout that reproduce the issue.
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: output
+    attributes:
+      label: Relevant output
+      description: Paste the report, JSON, or stack trace. Redact secrets and paths if needed.
+      render: shell
+    validations:
+      required: false
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Operating system, Node.js version, and whether this ran locally or in GitHub Actions.
+      placeholder: macOS 15, Node.js 22.12, local
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I searched existing issues.
+          required: true
+        - label: I removed credentials and private data from this report.
+          required: true
+        - label: This is not a security vulnerability.
+          required: true

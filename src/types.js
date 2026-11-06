@@ -42,6 +42,7 @@
  * @property {string} message What is wrong and, when practical, how to fix it.
  * @property {string} [hint] Optional second line with a concrete suggestion.
  * @property {number} [line] 1-based line number.
+ * @property {string} [file] Absolute path when the finding belongs to a bundled file.
  * @property {"error"|"warning"|"info"} [severity] Per-finding override. Use sparingly.
  */
 

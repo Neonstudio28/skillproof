@@ -73,26 +73,3 @@ export function lineInBody(skill, needle) {
   const index = skill.body.split('\n').findIndex((line) => line.includes(needle));
   return index === -1 ? skill.bodyStartLine || 1 : skill.bodyStartLine + index;
 }
-
-/**
- * Find the 1-based line of the first line in the raw file matching `pattern`.
- * @param {import('./types.js').Skill} skill
- * @param {RegExp} pattern
- * @returns {number|undefined}
- */
-export function lineMatching(skill, pattern) {
-  for (let index = 0; index < skill.lines.length; index += 1) {
-    if (pattern.test(skill.lines[index])) return index + 1;
-  }
-  return undefined;
-}
-
-/**
- * Word-boundary test that is safe for non-ASCII descriptions.
- * @param {string} text
- * @param {RegExp} pattern
- * @returns {boolean}
- */
-export function test(text, pattern) {
-  return pattern.test(text);
-}

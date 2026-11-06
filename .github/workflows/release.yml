@@ -1,0 +1,44 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Publish GitHub release
+    if: contains(github.ref_name, '.')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify the release
+        run: |
+          npm test
+          npm run lint:skills
+
+      - name: Build the package tarball
+        run: npm pack
+
+      - name: Create the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tarball="$(ls skillproof-*.tgz)"
+          gh release create "$GITHUB_REF_NAME" "$tarball" \
+            --generate-notes \
+            --title "SkillProof $GITHUB_REF_NAME"

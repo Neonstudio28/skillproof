@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/Neonstudio28/skillproof/main/docs/skillproof.schema.json",
+  "title": "SkillProof configuration",
+  "description": "Configuration for the SkillProof CLI and GitHub Action.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "format": "uri",
+      "description": "Optional JSON Schema reference for editor completion."
+    },
+    "exclude": {
+      "type": "array",
+      "description": "Glob patterns to skip. A pattern without a slash matches at any depth; a trailing slash matches a directory and its contents.",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "default": []
+    },
+    "rules": {
+      "type": "object",
+      "description": "Per-rule severity overrides. Set a rule to off to disable it.",
+      "propertyNames": {
+        "enum": [
+          "frontmatter-unknown-field",
+          "field-type",
+          "fork-fields",
+          "name-required",
+          "name-format",
+          "name-reserved",
+          "name-directory",
+          "description-required",
+          "description-length",
+          "description-truncation",
+          "description-trigger",
+          "description-third-person",
+          "description-xml",
+          "reserved-directory",
+          "body-empty",
+          "body-heading",
+          "body-length",
+          "body-token-budget",
+          "windows-path",
+          "unfinished-content",
+          "broken-reference",
+          "nested-reference",
+          "reference-toc",
+          "orphan-resource",
+          "secret-in-skill",
+          "possible-secret",
+          "dangerous-command",
+          "risky-command",
+          "suspicious-instruction",
+          "unscoped-bash"
+        ]
+      },
+      "additionalProperties": {
+        "enum": ["off", "info", "warning", "error"]
+      },
+      "default": {}
+    },
+    "strict": {
+      "type": "boolean",
+      "description": "Treat warnings as failures.",
+      "default": false
+    },
+    "minScore": {
+      "type": "number",
+      "description": "Fail when the overall score is below this value.",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 0
+    },
+    "maxWarnings": {
+      "description": "Fail when the warning count exceeds this value. Null disables the threshold.",
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  }
+}

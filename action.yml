@@ -1,0 +1,85 @@
+name: SkillProof
+description: Lint, score, and validate Claude Code Agent Skills
+author: Neonstudio28
+
+branding:
+  icon: check-circle
+  color: purple
+
+inputs:
+  paths:
+    description: Space-separated files or directories to scan.
+    required: false
+    default: .
+  strict:
+    description: Fail when warnings are present.
+    required: false
+    default: 'true'
+  min-score:
+    description: Minimum overall score from 0 to 100. Set to 0 to disable.
+    required: false
+    default: '0'
+  max-warnings:
+    description: Maximum allowed warnings. Leave empty to disable.
+    required: false
+    default: ''
+  exclude:
+    description: Newline-separated glob patterns to skip.
+    required: false
+    default: ''
+  format:
+    description: Reporter to use (github, pretty, or json).
+    required: false
+    default: github
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install SkillProof dependencies
+      shell: bash
+      working-directory: ${{ github.action_path }}
+      run: npm ci --omit=dev --ignore-scripts --no-audit --no-fund
+
+    - name: Run SkillProof
+      shell: bash
+      env:
+        INPUT_PATHS: ${{ inputs.paths }}
+        INPUT_STRICT: ${{ inputs.strict }}
+        INPUT_MIN_SCORE: ${{ inputs.min-score }}
+        INPUT_MAX_WARNINGS: ${{ inputs.max-warnings }}
+        INPUT_EXCLUDE: ${{ inputs.exclude }}
+        INPUT_FORMAT: ${{ inputs.format }}
+      run: |
+        set -euo pipefail
+
+        args=(--format "$INPUT_FORMAT")
+
+        if [[ "$INPUT_STRICT" == "true" ]]; then
+          args+=(--strict)
+        fi
+
+        if [[ -n "$INPUT_MIN_SCORE" && "$INPUT_MIN_SCORE" != "0" ]]; then
+          args+=(--min-score "$INPUT_MIN_SCORE")
+        fi
+
+        if [[ -n "$INPUT_MAX_WARNINGS" ]]; then
+          args+=(--max-warnings "$INPUT_MAX_WARNINGS")
+        fi
+
+        while IFS= read -r pattern; do
+          pattern="${pattern%$'\r'}"
+          [[ -z "$pattern" ]] && continue
+          args+=(--exclude "$pattern")
+        done <<< "$INPUT_EXCLUDE"
+
+        read -r -a path_args <<< "$INPUT_PATHS"
+        if [[ ${#path_args[@]} -eq 0 ]]; then
+          path_args=(.)
+        fi
+
+        node "$GITHUB_ACTION_PATH/bin/skillproof.mjs" "${args[@]}" "${path_args[@]}"
