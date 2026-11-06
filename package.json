@@ -1,0 +1,52 @@
+{
+  "name": "skillproof",
+  "version": "0.1.0",
+  "description": "Lint, score, and ship reliable Claude Code Agent Skills.",
+  "type": "module",
+  "bin": {
+    "skillproof": "./bin/skillproof.mjs"
+  },
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": [
+    "action.yml",
+    "bin",
+    "docs",
+    "src",
+    "LICENSE",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test",
+    "test:coverage": "node --test --experimental-test-coverage",
+    "lint:skills": "node bin/skillproof.mjs .claude/skills examples --strict",
+    "prepublishOnly": "npm test"
+  },
+  "keywords": [
+    "agent-skills",
+    "claude",
+    "claude-code",
+    "cli",
+    "lint",
+    "linter",
+    "skills",
+    "static-analysis"
+  ],
+  "author": "Neonstudio28",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Neonstudio28/skillproof.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Neonstudio28/skillproof/issues"
+  },
+  "homepage": "https://github.com/Neonstudio28/skillproof#readme",
+  "dependencies": {
+    "yaml": "^2.9.1"
+  }
+}
